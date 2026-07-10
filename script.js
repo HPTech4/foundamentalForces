@@ -158,24 +158,31 @@ gsap.to('.emblem-svg .o1', { rotation: '+=360', transformOrigin: '100px 100px', 
 gsap.to('.emblem-svg .o2', { rotation: '+=360', transformOrigin: '100px 100px', duration: 18, repeat: -1, ease: 'none' });
 gsap.to('.emblem-svg .o3', { rotation: '+=360', transformOrigin: '100px 100px', duration: 22, repeat: -1, ease: 'none' });
 
-function orbitElectrons(selectorPrefix, rx, ry, cx, cy) {
-  const els = document.querySelectorAll(selectorPrefix);
+function orbitElectrons(selector, rx, ry, cx, cy, tiltDegrees = 0) {
+  const els = document.querySelectorAll(selector);
+  const tilt = (tiltDegrees * Math.PI) / 180;
   els.forEach((el, i) => {
     const offset = { angle: (i / els.length) * Math.PI * 2 };
     gsap.to(offset, {
       angle: offset.angle + Math.PI * 2,
       duration: 3 + i,
       repeat: -1,
-      ease: 'none',
+      ease: "none",
       onUpdate: () => {
-        el.setAttribute('cx', cx + Math.cos(offset.angle) * rx);
-        el.setAttribute('cy', cy + Math.sin(offset.angle) * ry);
-      }
+        const ex = Math.cos(offset.angle) * rx;
+        const ey = Math.sin(offset.angle) * ry;
+        const x = ex * Math.cos(tilt) - ey * Math.sin(tilt);
+        const y = ex * Math.sin(tilt) + ey * Math.cos(tilt);
+        el.setAttribute("cx", cx + x);
+        el.setAttribute("cy", cy + y);
+      },
     });
   });
 }
-orbitElectrons('.orbit-e', 90, 34, 100, 100);
-orbitElectrons('.final-e', 130, 48, 150, 150);
+
+orbitElectrons(".e1", 90, 34, 100, 100, 0);
+orbitElectrons(".e2", 90, 34, 100, 100, 60);
+orbitElectrons(".e3", 90, 34, 100, 100, 120);
 
 /* ==========================================================================
    4. SCENE 01 — SCALE JOURNEY
