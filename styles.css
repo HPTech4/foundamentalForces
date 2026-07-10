@@ -1,0 +1,508 @@
+/* ==========================================================================
+   PHY528 — The Four Fundamental Interactions
+   Design tokens
+   ========================================================================== */
+
+:root {
+  --bg: #0F172A;
+  --bg-secondary: #1E3A5F;
+  --blue: #38BDF8;
+  --gold: #FBBF24;
+  --green: #22C55E;
+  --purple: #A78BFA;
+  --text: #F8FAFC;
+  --slate: #64748B;
+  --slate-dim: #334155;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --transport-h: 84px;
+  --ease-smooth: cubic-bezier(.22,1,.36,1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+svg { display: block; overflow: visible; }
+
+sup { font-size: .6em; }
+
+/* ==========================================================================
+   Ambient background
+   ========================================================================== */
+
+#particle-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.ambient-glow {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: .35;
+}
+.ambient-glow--a {
+  width: 50vw; height: 50vw;
+  background: var(--bg-secondary);
+  top: -10%; left: -10%;
+}
+.ambient-glow--b {
+  width: 40vw; height: 40vw;
+  background: #0c2440;
+  bottom: -10%; right: -5%;
+}
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: .025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ==========================================================================
+   Stage / scene mechanics
+   ========================================================================== */
+
+#stage {
+  position: relative;
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  bottom: var(--transport-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  padding: 4vw 6vw;
+}
+
+.scene.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scene-inner {
+  width: 100%;
+  max-width: 1180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.scene-tag {
+  font-family: var(--font-mono);
+  font-size: clamp(.7rem, 1vw, .82rem);
+  letter-spacing: .16em;
+  color: var(--blue);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+.scene-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.8rem, 3.6vw, 3rem);
+  letter-spacing: -.01em;
+  margin-bottom: 20px;
+}
+
+.scene-copy {
+  font-size: clamp(.95rem, 1.3vw, 1.15rem);
+  line-height: 1.65;
+  color: #CBD5E1;
+  max-width: 620px;
+  font-weight: 300;
+}
+
+/* ==========================================================================
+   Scene 00 — Opening
+   ========================================================================== */
+
+.scene-00 { gap: 6px; }
+
+.core-emblem { width: clamp(140px, 18vw, 220px); margin-bottom: 8px; }
+.emblem-svg { width: 100%; }
+.orbit-ring { fill: none; stroke: var(--blue); stroke-width: 1; opacity: .45; transform-origin: 100px 100px; }
+.orbit-e { transform-origin: 0 0; }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: clamp(.72rem, 1vw, .85rem);
+  letter-spacing: .22em;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+
+.title-hero {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 6.2vw, 5rem);
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  margin-bottom: 20px;
+}
+.title-hero .line { display: block; }
+.accent-text {
+  background: linear-gradient(90deg, var(--blue), var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  color: #94A3B8;
+  font-weight: 300;
+  margin-bottom: 40px;
+}
+
+.reveal-line { opacity: 0; }
+
+.play-btn {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--bg);
+  background: var(--text);
+  border: none;
+  padding: 15px 36px;
+  border-radius: 100px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transition: transform .3s var(--ease-smooth), box-shadow .3s var(--ease-smooth);
+  box-shadow: 0 0 0 rgba(56,189,248,0);
+}
+.play-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 30px rgba(56,189,248,.35);
+}
+.play-btn__icon { font-size: .75rem; }
+.play-btn--ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(248,250,252,.25);
+}
+.play-btn--ghost:hover { border-color: var(--blue); }
+
+/* ==========================================================================
+   Scene 01 — Scale journey
+   ========================================================================== */
+
+.scale-journey {
+  display: flex;
+  align-items: center;
+  gap: clamp(6px, 1.4vw, 20px);
+  margin: 48px 0 22px;
+  flex-wrap: nowrap;
+}
+
+.scale-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: .15;
+  transform: scale(.75);
+  transition: opacity .5s var(--ease-smooth), transform .5s var(--ease-smooth);
+}
+.scale-stage.is-current { opacity: 1; transform: scale(1.15); }
+.scale-stage.is-passed { opacity: .4; transform: scale(.85); }
+.scale-stage svg { width: clamp(34px, 4.4vw, 58px); }
+.scale-stage span {
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  letter-spacing: .04em;
+  color: #94A3B8;
+  white-space: nowrap;
+}
+
+.scale-caption {
+  font-size: clamp(.9rem, 1.2vw, 1.05rem);
+  color: #94A3B8;
+  font-weight: 300;
+  min-height: 1.6em;
+}
+
+/* ==========================================================================
+   Force scenes — shared two-column layout
+   ========================================================================== */
+
+.force-layout {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 5vw;
+  align-items: center;
+  text-align: left;
+  width: 100%;
+}
+.force-layout--reverse { grid-template-columns: 1fr 1.05fr; }
+.force-layout--reverse .force-info { order: 2; }
+.force-layout--reverse .force-visual { order: 1; }
+
+.force-tag { color: var(--force-color, var(--blue)); }
+
+.force-visual {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  max-height: 62vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.force-svg { width: 100%; height: 100%; }
+
+.visual-caption {
+  position: absolute;
+  bottom: -6%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+  font-size: .85rem;
+  color: #94A3B8;
+  font-family: var(--font-mono);
+  letter-spacing: .01em;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 30px;
+  max-width: 460px;
+}
+
+.stat-card {
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(14px);
+}
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: .66rem;
+  letter-spacing: .06em;
+  color: var(--slate);
+  text-transform: uppercase;
+}
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+.stat-value em { font-style: normal; color: var(--slate); font-size: .78rem; }
+
+/* ==========================================================================
+   Scene 06 — Comparison table
+   ========================================================================== */
+
+.scene-06 { align-items: stretch; }
+.scene-06 .scene-title { text-align: center; }
+
+.compare-table {
+  width: 100%;
+  margin-top: 28px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+.ct-row {
+  display: grid;
+  grid-template-columns: 1.3fr .9fr 1fr 1.1fr 1.1fr 1.3fr;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  opacity: 0;
+  transform: translateX(-18px);
+  border-left: 3px solid transparent;
+}
+.ct-row:not(.ct-head) { border-left-color: var(--row-color); background: rgba(255,255,255,.02); }
+.ct-row:last-child { border-bottom: none; }
+.ct-head {
+  background: rgba(255,255,255,.04);
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--slate);
+  opacity: 1;
+  transform: none;
+}
+.ct-cell {
+  padding: 15px 18px;
+  font-size: .88rem;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-mono);
+}
+.ct-cell--label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .95rem;
+}
+
+/* ==========================================================================
+   Scene 07 — Conclusion
+   ========================================================================== */
+
+.scene-07 { gap: 4px; }
+.core-emblem--final { width: clamp(180px, 24vw, 300px); margin-bottom: 20px; }
+
+.closing-line {
+  font-size: clamp(1rem, 1.6vw, 1.35rem);
+  line-height: 1.6;
+  color: #E2E8F0;
+  font-weight: 300;
+  max-width: 720px;
+  margin-bottom: 30px;
+}
+
+.thank-you {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  background: linear-gradient(90deg, var(--gold), var(--blue), var(--green));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 12px;
+}
+
+.closing-course {
+  font-family: var(--font-mono);
+  font-size: .85rem;
+  letter-spacing: .12em;
+  color: var(--slate);
+  text-transform: uppercase;
+  margin-bottom: 34px;
+}
+
+/* ==========================================================================
+   Transport controls
+   ========================================================================== */
+
+.transport {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: var(--transport-h);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 clamp(16px, 4vw, 48px);
+  background: linear-gradient(0deg, rgba(15,23,42,.92), rgba(15,23,42,0));
+}
+
+.transport-btn {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background .25s, border-color .25s, transform .2s;
+}
+.transport-btn:hover { background: rgba(255,255,255,.1); border-color: var(--blue); }
+.transport-btn:active { transform: scale(.92); }
+.transport-btn svg { width: 18px; height: 18px; }
+.transport-btn--play svg { width: 20px; height: 20px; }
+
+.transport-progress {
+  position: relative;
+  flex: 1;
+  height: 3px;
+  background: rgba(255,255,255,.08);
+  border-radius: 3px;
+}
+.transport-progress__fill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 0%;
+  background: linear-gradient(90deg, var(--blue), var(--gold));
+  border-radius: 3px;
+  transition: width .1s linear;
+}
+.transport-dots {
+  position: absolute;
+  top: 50%;
+  left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+.transport-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid rgba(255,255,255,.2);
+  cursor: pointer;
+  transition: border-color .25s, background .25s, transform .25s;
+}
+.transport-dot.is-active { border-color: var(--gold); background: var(--gold); transform: scale(1.15); }
+.transport-dot.is-passed { border-color: var(--blue); background: var(--blue); }
+
+.transport-label {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  color: var(--slate);
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 84px;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .force-layout, .force-layout--reverse {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .force-layout--reverse .force-info { order: 1; }
+  .force-layout--reverse .force-visual { order: 2; }
+  .force-info { display: flex; flex-direction: column; align-items: center; }
+  .stat-grid { margin-left: auto; margin-right: auto; }
+  .force-visual { max-height: 34vh; margin: 10px 0; }
+  .scale-journey { gap: 5px; }
+  .ct-row { grid-template-columns: 1fr 1fr 1fr; }
+  .ct-cell:nth-child(4), .ct-cell:nth-child(6) { display: none; }
+  .scene { padding: 3vw 5vw; overflow-y: auto; }
+}

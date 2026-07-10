@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PHY528 — The Four Fundamental Interactions</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ AMBIENT BACKGROUND ============ -->
+<canvas id="particle-field"></canvas>
+<div class="ambient-glow ambient-glow--a"></div>
+<div class="ambient-glow ambient-glow--b"></div>
+<div class="grain"></div>
+
+<!-- ============ STAGE (all scenes live here) ============ -->
+<main id="stage">
+
+  <!-- SCENE 00 — OPENING -->
+  <section class="scene" id="scene-00" data-scene="0">
+    <div class="scene-inner scene-00">
+      <div class="core-emblem" id="emblem-00">
+        <svg viewBox="0 0 200 200" class="emblem-svg">
+          <circle cx="100" cy="100" r="6" fill="var(--gold)" class="emblem-nucleus"/>
+          <ellipse cx="100" cy="100" rx="90" ry="34" class="orbit-ring o1"/>
+          <ellipse cx="100" cy="100" rx="90" ry="34" class="orbit-ring o2" transform="rotate(60 100 100)"/>
+          <ellipse cx="100" cy="100" rx="90" ry="34" class="orbit-ring o3" transform="rotate(120 100 100)"/>
+          <circle cx="0" cy="0" r="4" fill="var(--blue)" class="orbit-e e1"/>
+          <circle cx="0" cy="0" r="4" fill="var(--blue)" class="orbit-e e2"/>
+          <circle cx="0" cy="0" r="4" fill="var(--blue)" class="orbit-e e3"/>
+        </svg>
+      </div>
+      <p class="eyebrow reveal-line">PHY528 &nbsp;·&nbsp; NUCLEAR PHYSICS II</p>
+      <h1 class="title-hero">
+        <span class="line reveal-line">The Four</span>
+        <span class="line reveal-line accent-text">Fundamental Interactions</span>
+      </h1>
+      <p class="subtitle reveal-line">The four forces that govern our universe.</p>
+      <button class="play-btn" id="btn-start">
+        <span class="play-btn__icon">▶</span>
+        <span>Begin</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- SCENE 01 — WHAT IS A FUNDAMENTAL FORCE -->
+  <section class="scene" id="scene-01" data-scene="1">
+    <div class="scene-inner">
+      <p class="scene-tag">01 — FOUNDATIONS</p>
+      <h2 class="scene-title">What Is a Fundamental Force?</h2>
+      <p class="scene-copy" id="s1-copy">Every interaction in nature — from a falling apple to a dying star — is the fingerprint of one of only four fundamental forces.</p>
+      <div class="scale-journey" id="scale-journey">
+        <div class="scale-stage" data-stage="galaxy"><svg viewBox="0 0 120 120"><g class="ico-galaxy"><ellipse cx="60" cy="60" rx="50" ry="18" fill="none" stroke="var(--blue)" stroke-width="2"/><ellipse cx="60" cy="60" rx="34" ry="12" fill="none" stroke="var(--gold)" stroke-width="1.5" opacity=".7"/><circle cx="60" cy="60" r="5" fill="var(--gold)"/></g></svg><span>Galaxy</span></div>
+        <div class="scale-stage" data-stage="solar"><svg viewBox="0 0 120 120"><g class="ico-solar"><circle cx="60" cy="60" r="8" fill="var(--gold)"/><circle cx="60" cy="60" r="24" fill="none" stroke="var(--slate)" stroke-width="1"/><circle cx="60" cy="60" r="40" fill="none" stroke="var(--slate)" stroke-width="1"/><circle cx="84" cy="60" r="3" fill="var(--blue)"/><circle cx="60" cy="20" r="4" fill="var(--green)"/></g></svg><span>Solar System</span></div>
+        <div class="scale-stage" data-stage="earth"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="34" fill="none" stroke="var(--green)" stroke-width="2"/><path d="M35 50 Q60 40 85 55 Q65 65 40 68 Z" fill="var(--green)" opacity=".5"/><span></span></svg><span>Earth</span></div>
+        <div class="scale-stage" data-stage="human"><svg viewBox="0 0 120 120"><g stroke="var(--blue)" stroke-width="2.5" fill="none" stroke-linecap="round"><circle cx="60" cy="34" r="10" fill="var(--blue)" stroke="none"/><line x1="60" y1="44" x2="60" y2="82"/><line x1="60" y1="55" x2="42" y2="70"/><line x1="60" y1="55" x2="78" y2="70"/><line x1="60" y1="82" x2="46" y2="104"/><line x1="60" y1="82" x2="74" y2="104"/></g></svg><span>Human</span></div>
+        <div class="scale-stage" data-stage="atom"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="4" fill="var(--gold)"/><ellipse cx="60" cy="60" rx="46" ry="18" fill="none" stroke="var(--blue)" stroke-width="1.5"/><ellipse cx="60" cy="60" rx="46" ry="18" fill="none" stroke="var(--blue)" stroke-width="1.5" transform="rotate(60 60 60)"/><ellipse cx="60" cy="60" rx="46" ry="18" fill="none" stroke="var(--blue)" stroke-width="1.5" transform="rotate(120 60 60)"/></svg><span>Atom</span></div>
+        <div class="scale-stage" data-stage="nucleus"><svg viewBox="0 0 120 120"><g class="mini-nucleus"><circle cx="52" cy="55" r="10" fill="var(--gold)"/><circle cx="70" cy="52" r="10" fill="var(--blue)"/><circle cx="60" cy="70" r="10" fill="var(--gold)"/><circle cx="76" cy="68" r="10" fill="var(--blue)"/></g></svg><span>Nucleus</span></div>
+        <div class="scale-stage" data-stage="quark"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="14" fill="none" stroke="var(--green)" stroke-width="2" stroke-dasharray="3 3"/><circle cx="52" cy="55" r="4" fill="var(--green)"/><circle cx="68" cy="55" r="4" fill="var(--green)"/><circle cx="60" cy="68" r="4" fill="var(--green)"/></svg><span>Quarks</span></div>
+      </div>
+      <p class="scale-caption" id="scale-caption">Zooming from the largest structures to the smallest known constituents of matter —</p>
+    </div>
+  </section>
+
+  <!-- SCENE 02 — STRONG NUCLEAR FORCE -->
+  <section class="scene force-scene" id="scene-02" data-scene="2" data-force="strong">
+    <div class="scene-inner force-layout">
+      <div class="force-visual" id="strong-visual">
+        <svg viewBox="0 0 400 400" class="force-svg">
+          <g id="strong-nucleons"></g>
+          <g id="strong-gluons"></g>
+          <g id="strong-repel-arrows" opacity="0"></g>
+        </svg>
+        <p class="visual-caption" id="strong-caption">Without the strong force, protons repel — the nucleus flies apart.</p>
+      </div>
+      <div class="force-info">
+        <p class="scene-tag force-tag" style="--force-color: var(--gold)">02 — STRONG NUCLEAR FORCE</p>
+        <h2 class="scene-title">The Glue of the Nucleus</h2>
+        <p class="scene-copy">Protons carry positive charge and should repel one another. Yet nuclei hold together — bound by the strongest force in nature, acting only at extremely short range.</p>
+        <div class="stat-grid">
+          <div class="stat-card"><span class="stat-label">Relative Strength</span><span class="stat-value">1 <em>(strongest)</em></span></div>
+          <div class="stat-card"><span class="stat-label">Range</span><span class="stat-value">~10<sup>-15</sup> m</span></div>
+          <div class="stat-card"><span class="stat-label">Force Carrier</span><span class="stat-value">Gluon</span></div>
+          <div class="stat-card"><span class="stat-label">Application</span><span class="stat-value">Nuclear Energy</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENE 03 — ELECTROMAGNETIC FORCE -->
+  <section class="scene force-scene" id="scene-03" data-scene="3" data-force="em">
+    <div class="scene-inner force-layout force-layout--reverse">
+      <div class="force-info">
+        <p class="scene-tag force-tag" style="--force-color: var(--blue)">03 — ELECTROMAGNETIC FORCE</p>
+        <h2 class="scene-title">Fields, Charge &amp; Light</h2>
+        <p class="scene-copy">Acting on any electric charge across infinite range, this force governs atoms, chemistry, electricity, magnetism, and every photon of light that reaches your eye.</p>
+        <div class="stat-grid">
+          <div class="stat-card"><span class="stat-label">Relative Strength</span><span class="stat-value">10<sup>-2</sup></span></div>
+          <div class="stat-card"><span class="stat-label">Range</span><span class="stat-value">Infinite</span></div>
+          <div class="stat-card"><span class="stat-label">Force Carrier</span><span class="stat-value">Photon</span></div>
+          <div class="stat-card"><span class="stat-label">Application</span><span class="stat-value">Electronics, Light</span></div>
+        </div>
+      </div>
+      <div class="force-visual" id="em-visual">
+        <svg viewBox="0 0 400 400" class="force-svg">
+          <circle cx="200" cy="200" r="10" fill="var(--gold)" class="em-nucleus"/>
+          <ellipse cx="200" cy="200" rx="140" ry="52" fill="none" class="em-orbit"/>
+          <circle cx="0" cy="0" r="6" fill="var(--blue)" id="em-electron"/>
+          <g id="em-field-lines"></g>
+          <g id="em-photons"></g>
+        </svg>
+        <p class="visual-caption">Opposite charges attract. Like charges repel.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENE 04 — WEAK NUCLEAR FORCE -->
+  <section class="scene force-scene" id="scene-04" data-scene="4" data-force="weak">
+    <div class="scene-inner force-layout">
+      <div class="force-visual" id="weak-visual">
+        <svg viewBox="0 0 400 400" class="force-svg">
+          <g id="weak-decay"></g>
+        </svg>
+        <p class="visual-caption" id="weak-caption">Beta decay: a neutron transforms into a proton.</p>
+      </div>
+      <div class="force-info">
+        <p class="scene-tag force-tag" style="--force-color: var(--green)">04 — WEAK NUCLEAR FORCE</p>
+        <h2 class="scene-title">The Force of Transformation</h2>
+        <p class="scene-copy">The weak force doesn't bind — it transforms. It lets one type of particle decay into another, powering radioactivity and the nuclear fusion inside the Sun.</p>
+        <div class="stat-grid">
+          <div class="stat-card"><span class="stat-label">Relative Strength</span><span class="stat-value">10<sup>-6</sup></span></div>
+          <div class="stat-card"><span class="stat-label">Range</span><span class="stat-value">~10<sup>-18</sup> m</span></div>
+          <div class="stat-card"><span class="stat-label">Force Carrier</span><span class="stat-value">W / Z Bosons</span></div>
+          <div class="stat-card"><span class="stat-label">Application</span><span class="stat-value">Radioactivity, the Sun</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENE 05 — GRAVITY -->
+  <section class="scene force-scene" id="scene-05" data-scene="5" data-force="gravity">
+    <div class="scene-inner force-layout force-layout--reverse">
+      <div class="force-info">
+        <p class="scene-tag force-tag" style="--force-color: #A78BFA">05 — GRAVITATIONAL FORCE</p>
+        <h2 class="scene-title">The Weakest, Widest Reach</h2>
+        <p class="scene-copy">Gravity is by far the weakest fundamental force, yet its infinite range and constant attraction shape planets, stars, and the large-scale structure of the cosmos.</p>
+        <div class="stat-grid">
+          <div class="stat-card"><span class="stat-label">Relative Strength</span><span class="stat-value">10<sup>-38</sup> <em>(weakest)</em></span></div>
+          <div class="stat-card"><span class="stat-label">Range</span><span class="stat-value">Infinite</span></div>
+          <div class="stat-card"><span class="stat-label">Force Carrier</span><span class="stat-value">Graviton <em>(theoretical)</em></span></div>
+          <div class="stat-card"><span class="stat-label">Application</span><span class="stat-value">Planetary Motion</span></div>
+        </div>
+      </div>
+      <div class="force-visual" id="gravity-visual">
+        <svg viewBox="0 0 400 400" class="force-svg">
+          <g id="gravity-scene"></g>
+        </svg>
+        <p class="visual-caption" id="gravity-caption">An apple falls. The Moon orbits Earth. Both obey the same law.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENE 06 — COMPARISON -->
+  <section class="scene" id="scene-06" data-scene="6">
+    <div class="scene-inner scene-06">
+      <p class="scene-tag">06 — THE FULL PICTURE</p>
+      <h2 class="scene-title">Four Forces, Compared</h2>
+      <div class="compare-table" id="compare-table">
+        <div class="ct-row ct-head">
+          <div class="ct-cell ct-cell--label">Force</div>
+          <div class="ct-cell">Strength</div>
+          <div class="ct-cell">Range</div>
+          <div class="ct-cell">Carrier</div>
+          <div class="ct-cell">Acts On</div>
+          <div class="ct-cell">Example</div>
+        </div>
+        <div class="ct-row" style="--row-color: var(--gold)">
+          <div class="ct-cell ct-cell--label">Strong</div>
+          <div class="ct-cell">1</div>
+          <div class="ct-cell">10<sup>-15</sup> m</div>
+          <div class="ct-cell">Gluon</div>
+          <div class="ct-cell">Quarks</div>
+          <div class="ct-cell">Nuclear fusion</div>
+        </div>
+        <div class="ct-row" style="--row-color: var(--blue)">
+          <div class="ct-cell ct-cell--label">Electromagnetic</div>
+          <div class="ct-cell">10<sup>-2</sup></div>
+          <div class="ct-cell">Infinite</div>
+          <div class="ct-cell">Photon</div>
+          <div class="ct-cell">Charge</div>
+          <div class="ct-cell">Light, electricity</div>
+        </div>
+        <div class="ct-row" style="--row-color: var(--green)">
+          <div class="ct-cell ct-cell--label">Weak</div>
+          <div class="ct-cell">10<sup>-6</sup></div>
+          <div class="ct-cell">10<sup>-18</sup> m</div>
+          <div class="ct-cell">W / Z Boson</div>
+          <div class="ct-cell">Quarks, leptons</div>
+          <div class="ct-cell">Beta decay</div>
+        </div>
+        <div class="ct-row" style="--row-color: #A78BFA">
+          <div class="ct-cell ct-cell--label">Gravity</div>
+          <div class="ct-cell">10<sup>-38</sup></div>
+          <div class="ct-cell">Infinite</div>
+          <div class="ct-cell">Graviton*</div>
+          <div class="ct-cell">Mass / Energy</div>
+          <div class="ct-cell">Orbits</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENE 07 — CONCLUSION -->
+  <section class="scene" id="scene-07" data-scene="7">
+    <div class="scene-inner scene-07">
+      <div class="core-emblem core-emblem--final" id="emblem-final">
+        <svg viewBox="0 0 300 300" class="emblem-svg">
+          <circle cx="150" cy="150" r="8" fill="var(--gold)"/>
+          <ellipse cx="150" cy="150" rx="130" ry="48" class="orbit-ring final-o1"/>
+          <ellipse cx="150" cy="150" rx="130" ry="48" class="orbit-ring final-o2" transform="rotate(60 150 150)"/>
+          <ellipse cx="150" cy="150" rx="130" ry="48" class="orbit-ring final-o3" transform="rotate(120 150 150)"/>
+          <circle cx="0" cy="0" r="5" fill="var(--gold)" class="final-e fe1"/>
+          <circle cx="0" cy="0" r="5" fill="var(--blue)" class="final-e fe2"/>
+          <circle cx="0" cy="0" r="5" fill="var(--green)" class="final-e fe3"/>
+          <circle cx="0" cy="0" r="5" fill="#A78BFA" class="final-e fe4"/>
+        </svg>
+      </div>
+      <p class="closing-line reveal-line">From the smallest quarks to the largest galaxies,<br>every phenomenon in nature is governed by four fundamental interactions.</p>
+      <h2 class="thank-you reveal-line">Thank You</h2>
+      <p class="closing-course reveal-line">PHY528 — Nuclear Physics II</p>
+      <button class="play-btn play-btn--ghost" id="btn-restart">
+        <span>Watch Again</span>
+      </button>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ TRANSPORT CONTROLS ============ -->
+<nav class="transport" id="transport">
+  <button class="transport-btn" id="btn-prev" aria-label="Previous scene">
+    <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="transport-progress" id="transport-progress">
+    <div class="transport-progress__fill" id="transport-progress-fill"></div>
+    <div class="transport-dots" id="transport-dots"></div>
+  </div>
+  <button class="transport-btn" id="btn-next" aria-label="Next scene">
+    <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button class="transport-btn transport-btn--play" id="btn-playpause" aria-label="Play or pause">
+    <svg viewBox="0 0 24 24" id="icon-play"><path d="M6 4l14 8-14 8V4z" fill="currentColor"/></svg>
+    <svg viewBox="0 0 24 24" id="icon-pause" style="display:none"><rect x="5" y="4" width="5" height="16" fill="currentColor"/><rect x="14" y="4" width="5" height="16" fill="currentColor"/></svg>
+  </button>
+  <span class="transport-label" id="transport-label">Scene 1 / 8</span>
+</nav>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
