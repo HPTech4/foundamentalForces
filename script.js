@@ -154,9 +154,6 @@ gsap.timeline({ delay: .2 })
   .to('.play-btn', { y: 0, opacity: 1, duration: .6, ease: 'power3.out' }, 1.3);
 
 // continuous orbit rotation for opening emblem
-gsap.to('.emblem-svg .o1', { rotation: '+=360', transformOrigin: '100px 100px', duration: 14, repeat: -1, ease: 'none' });
-gsap.to('.emblem-svg .o2', { rotation: '+=360', transformOrigin: '100px 100px', duration: 18, repeat: -1, ease: 'none' });
-gsap.to('.emblem-svg .o3', { rotation: '+=360', transformOrigin: '100px 100px', duration: 22, repeat: -1, ease: 'none' });
 
 function orbitElectrons(selector, rx, ry, cx, cy, tiltDegrees = 0) {
   const els = document.querySelectorAll(selector);
@@ -471,9 +468,6 @@ sceneEnterFns['scene-07'] = function () {
     .to('.thank-you', { opacity: 1, y: 0, duration: .8, ease: 'power3.out' }, '-=.4')
     .to('.closing-course', { opacity: 1, y: 0, duration: .6, ease: 'power3.out' }, '-=.4')
     .to('.play-btn--ghost', { opacity: 1, y: 0, duration: .6, ease: 'power3.out' }, '-=.3');
-  gsap.to('.final-o1', { rotation: '+=360', transformOrigin: '150px 150px', duration: 16, repeat: -1, ease: 'none' });
-  gsap.to('.final-o2', { rotation: '+=360', transformOrigin: '150px 150px', duration: 20, repeat: -1, ease: 'none' });
-  gsap.to('.final-o3', { rotation: '+=360', transformOrigin: '150px 150px', duration: 24, repeat: -1, ease: 'none' });
 };
 
 /* ==========================================================================
